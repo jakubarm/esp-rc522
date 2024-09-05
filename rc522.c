@@ -55,9 +55,9 @@ static esp_err_t rc522_spi_init() {
     spi_device_interface_config_t devcfg = {
         .clock_speed_hz = 5000000,
         .mode = 0,
-        .spics_io_num = hndl->config->sda_io,
+        .spics_io_num = hndl->config->cs_io,
         .queue_size = 7,
-        .flags = SPI_DEVICE_HALFDUPLEX
+        //.flags = SPI_DEVICE_HALFDUPLEX
     };
 
     esp_err_t err = spi_bus_initialize(hndl->config->spi_host_id, &buscfg, 0);
@@ -179,7 +179,7 @@ esp_err_t rc522_init(rc522_config_t* config) {
     hndl->config->miso_io          = config->miso_io == 0 ? RC522_DEFAULT_MISO : config->miso_io;
     hndl->config->mosi_io          = config->mosi_io == 0 ? RC522_DEFAULT_MOSI : config->mosi_io;
     hndl->config->sck_io           = config->sck_io == 0 ? RC522_DEFAULT_SCK : config->sck_io;
-    hndl->config->sda_io           = config->sda_io == 0 ? RC522_DEFAULT_SDA : config->sda_io;
+    hndl->config->cs_io            = config->cs_io == 0 ? RC522_DEFAULT_CS : config->cs_io;
     hndl->config->spi_host_id      = config->spi_host_id == 0 ? RC522_DEFAULT_SPI_HOST : config->spi_host_id;
     hndl->config->scan_interval_ms = config->scan_interval_ms < 50 ? RC522_DEFAULT_SCAN_INTERVAL_MS : config->scan_interval_ms;
     hndl->config->task_stack_size  = config->task_stack_size == 0 ? RC522_DEFAULT_TACK_STACK_SIZE : config->task_stack_size;
